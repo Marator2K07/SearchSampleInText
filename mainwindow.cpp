@@ -1,6 +1,16 @@
 
 #include "mainwindow.h"
 
+void MainWindow::threadsInitialization(QPushButton *startSearch)
+{
+    // обработка потока линейного поиска
+    QThread *linearSThread = new QThread;
+    connect(linearSThread, SIGNAL(started()), linearSearch, SLOT(start()));
+    linearSearch->moveToThread(linearSThread);
+    connect(startSearch, SIGNAL(pressed()), linearSThread, SLOT(start()));
+    // ...
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow{parent}
 {
@@ -62,5 +72,14 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(mainWidget);
     mainWidget->setLayout(mainLayout);
     setFixedSize(600,500);
+
+    // начальная инициализация поисковиков(пока только линейного)
+    linearSearch = new LinearSearch(textField, sampleField);
+    connect(linearSearch, SIGNAL(stop(QString)), linearSearchResult, SLOT(setText(QString)));
+
+    // завершающая инициализация потоков для поисковиков вместе с сигнально-слотовыми соединениями;
+    // теперь при нажатии на "Начать поиск" будут запускаться потоки для всех
+    // написанных алгоритмов поиска
+    threadsInitialization(startSearch);
 }
 
