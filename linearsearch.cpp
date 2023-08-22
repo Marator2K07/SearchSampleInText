@@ -1,20 +1,23 @@
 
 #include "linearsearch.h"
 
-LinearSearch::LinearSearch()
+LinearSearch::LinearSearch(QTextEdit *text,
+                           QLineEdit *sample)
 {
-    text = "";
-    sample = "";
-    isFound = false;
-    foundPosition = -1;
+    this->text = text;
+    this->sample = sample;
+    result = "";
 }
 
-int LinearSearch::Start()
+void LinearSearch::start()
 {
+    QString txt = text->toPlainText();
+    QString smpl = sample->text();
     int i = 0;
     int j = 0;
-    while (i < text.length()) {
-        if(text[i] == sample[j]) {
+
+    while (i < txt.length()) {
+        if(txt[i] == smpl[j]) {
             i++;
             j++;
         }
@@ -22,10 +25,10 @@ int LinearSearch::Start()
             j = 0;
         }
         // в случае нахождения образа в тексте
-        if(j == sample.length() - 1) {
-            return 0;
+        if(j == smpl.length() - 1) {
+            emit stop(QString("Слово найдено на позиции: %1").arg(i-j));
         }
     }
     // если ничего не нашли
-    return -1;
+    emit stop(QString("Слово не найдено на позиции"));
 }
