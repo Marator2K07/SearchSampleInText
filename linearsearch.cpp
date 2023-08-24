@@ -26,9 +26,11 @@ void LinearSearch::start()
         }
         // в случае нахождения образа в тексте
         if(j == smpl.length() - 1) {
-            emit stop(QString("Слово найдено на позиции: %1").arg(i-j));
+            emit resultIsReady(QString("Образ найден на позиции: %1").arg(i-j));
+            emit stop();
         }
     }
     // если ничего не нашли
-    emit stop(QString("Слово не найдено на позиции"));
+    emit resultIsReady(QString("Образ не был найден"));
+    emit stop();
 }

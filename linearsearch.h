@@ -26,8 +26,11 @@ public slots:
 signals:
     ///
     /// \brief stop сигнал окончания поиска образа
+    void stop();
+    ///
+    /// \brief resultIsReady сигнал о готовности результата поиска
     /// \param result - реузльтат поиска
-    void stop(QString result);
+    void resultIsReady(QString result);
 };
 
 #endif // LINEARSEARCH_H
