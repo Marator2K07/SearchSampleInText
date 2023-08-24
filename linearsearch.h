@@ -14,6 +14,7 @@ private:
     QTextEdit* text;
     QLineEdit* sample;
     QString result;
+    QElapsedTimer timer;
 
 public:
     LinearSearch(QTextEdit* text,
@@ -31,6 +32,10 @@ signals:
     /// \brief resultIsReady сигнал о готовности результата поиска
     /// \param result - реузльтат поиска
     void resultIsReady(QString result);
+    ///
+    /// \brief timeIsReady сигнал подсчета времени, затраченного на поиск образа
+    /// \param timeElapsed - сколько было потрачено времени
+    void timeIsReady(QString result);
 };
 
 #endif // LINEARSEARCH_H
