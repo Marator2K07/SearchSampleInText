@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     textFieldLabel->setAlignment(Qt::AlignHCenter);
     QTextEdit *textField = new QTextEdit;
     QPushButton *loadFile = new QPushButton("Загрузить текст из файла");
-    QLabel *sampleFieldLabel = new QLabel("Поле образца для поиска:");
+    QLabel *sampleFieldLabel = new QLabel("Поле образа для поиска:");
     sampleFieldLabel->setAlignment(Qt::AlignHCenter);
     QLineEdit *sampleField = new QLineEdit;
     QPushButton *startSearch = new QPushButton("Начать поиск");
@@ -31,14 +31,14 @@ MainWindow::MainWindow(QWidget *parent)
     QLabel *kMPSearchName = new QLabel("Кнут-Моррис-Пратт");
     QLabel *bMHSearchName = new QLabel("Бойера-Мура-Хорпспула");
     // подвиджеты для результата поиска и компоновщик для них
-    QLabel *resultsLabel = new QLabel("Результаты поиска образца:");
+    QLabel *resultsLabel = new QLabel("Результаты поиска образа:");
     resultsLabel->setAlignment(Qt::AlignHCenter);
     QHBoxLayout *resultsLayout = new QHBoxLayout;
     QLabel *linearSearchResult = new QLabel("0");
     QLabel *kMPSearchResult = new QLabel("0");
     QLabel *bMHSearchResult = new QLabel("0");
     // подвиджеты для времени поиска и компоновщик для них
-    QLabel *timesLabel = new QLabel("*Время поиска образца:*");
+    QLabel *timesLabel = new QLabel("*Время поиска образа (в наносекундах):*");
     timesLabel->setAlignment(Qt::AlignHCenter);
     QHBoxLayout *timesLayout = new QHBoxLayout;
     QLabel *linearTimeResult = new QLabel("0");
@@ -77,6 +77,7 @@ MainWindow::MainWindow(QWidget *parent)
     // начальная инициализация поисковиков(пока только линейного)
     linearSearch = new LinearSearch(textField, sampleField);
     connect(linearSearch, SIGNAL(resultIsReady(QString)), linearSearchResult, SLOT(setText(QString)));
+    connect(linearSearch, SIGNAL(timeIsReady(QString)), linearTimeResult, SLOT(setText(QString)));
 
     // завершающая инициализация потоков для поисковиков вместе с сигнально-слотовыми соединениями;
     // теперь при нажатии на "Начать поиск" будут запускаться потоки для всех
