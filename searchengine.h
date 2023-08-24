@@ -6,6 +6,7 @@
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QObject>
+#include <QElapsedTimer>
 
 class SearchEngine : public QObject
 {
