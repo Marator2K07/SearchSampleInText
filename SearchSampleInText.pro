@@ -11,11 +11,13 @@ CONFIG += c++17
 SOURCES += \
     linearsearch.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    myfiledialog.cpp
 
 HEADERS += \
     linearsearch.h \
     mainwindow.h \
+    myfiledialog.h \
     searchengine.h
 
 FORMS +=
