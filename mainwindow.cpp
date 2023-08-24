@@ -73,7 +73,10 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(mainWidget);
     mainWidget->setLayout(mainLayout);
     setFixedSize(600,500);
-
+    // инициализация собственного класса файлового менеджера и связывание
+    // его слота с сигналом нажатия кнопки
+    fileDialog = new MyFileDialog(textField);
+    connect(loadFile, SIGNAL(pressed()), fileDialog, SLOT(loadTxtFileInField()));
     // начальная инициализация поисковиков(пока только линейного)
     linearSearch = new LinearSearch(textField, sampleField);
     connect(linearSearch, SIGNAL(resultIsReady(QString)), linearSearchResult, SLOT(setText(QString)));

@@ -2,7 +2,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
+#include "myfiledialog.h"
 #include "linearsearch.h"
 
 #include <QMainWindow>
@@ -13,12 +13,12 @@
 #include <QPushButton>
 #include <QThread>
 
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 private:
+    MyFileDialog *fileDialog;
     LinearSearch *linearSearch;
 
 private:
