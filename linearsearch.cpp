@@ -6,12 +6,10 @@ LinearSearch::LinearSearch(QTextEdit *text,
 {
     this->text = text;
     this->sample = sample;
-    result = "";
 }
 
 void LinearSearch::start()
 {
-
     QString txt = text->toPlainText();
     QString smpl = sample->text();
     int i = 0;

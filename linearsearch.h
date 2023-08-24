@@ -13,7 +13,6 @@ class LinearSearch : public SearchEngine
 private:
     QTextEdit* text;
     QLineEdit* sample;
-    QString result;
     QElapsedTimer timer;
 
 public:
