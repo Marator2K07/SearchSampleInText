@@ -6,6 +6,7 @@ void MainWindow::threadsInitialization(QPushButton *startSearch)
     // обработка потока линейного поиска
     QThread *linearSThread = new QThread;
     connect(linearSThread, SIGNAL(started()), linearSearch, SLOT(start()));
+    connect(linearSearch, SIGNAL(stop()), linearSThread, SLOT(quit()));
     linearSearch->moveToThread(linearSThread);
     connect(startSearch, SIGNAL(pressed()), linearSThread, SLOT(start()));
     // ...
@@ -75,7 +76,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // начальная инициализация поисковиков(пока только линейного)
     linearSearch = new LinearSearch(textField, sampleField);
-    connect(linearSearch, SIGNAL(stop(QString)), linearSearchResult, SLOT(setText(QString)));
+    connect(linearSearch, SIGNAL(resultIsReady(QString)), linearSearchResult, SLOT(setText(QString)));
 
     // завершающая инициализация потоков для поисковиков вместе с сигнально-слотовыми соединениями;
     // теперь при нажатии на "Начать поиск" будут запускаться потоки для всех
