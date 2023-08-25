@@ -18,6 +18,8 @@ private:
 public:
     KMPSearch(QTextEdit *text,
               QLineEdit *sample);
+
+public slots:
     // SearchEngine interface
     void start() override;
 

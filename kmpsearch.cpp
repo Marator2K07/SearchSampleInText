@@ -13,10 +13,19 @@ void KMPSearch::start()
     QString txt = text->toPlainText();
     QString smpl = sample->text();
 
-    // сначала определяем массив сдвигов
+    // сначала стоит проверить, а заполнены ли поля
+    if(txt.length() == 0 || smpl.length() == 0) {
+        emit timeIsReady(QString::number(0));
+        emit resultIsReady(QString("Недостаточно информации"));
+        emit stop();
+        return;
+    }
+
+    // определяем массив сдвигов
     int *shift = new int[smpl.length()]{0};
     int preI = 0; // индекс для префиксов
     int sufI = 1; // индекс для суффиксов
+    timer.start();
     while(sufI != smpl.length()) {
         if(smpl[preI] == smpl[sufI]) {
             shift[sufI] = preI + 1;
@@ -48,9 +57,13 @@ void KMPSearch::start()
     }
     // смотрим результаты
     if (j == smpl.length()) {
+        emit timeIsReady(QString::number(timer.nsecsElapsed()));
+        emit resultIsReady(QString("Образ найден на позиции: %1").arg(i-j));
         emit stop();
     }
     else {
+        emit timeIsReady(QString::number(timer.nsecsElapsed()));
+        emit resultIsReady(QString("Образ не был найден"));
         emit stop();
     }
 }
