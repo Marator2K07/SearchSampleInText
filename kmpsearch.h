@@ -18,6 +18,8 @@ private:
 public:
     KMPSearch(QTextEdit *text,
               QLineEdit *sample);
+    // SearchEngine interface
+    void start() override;
 
 signals:
     ///
@@ -31,6 +33,7 @@ signals:
     /// \brief timeIsReady сигнал подсчета времени, затраченного на поиск образа
     /// \param timeElapsed - сколько было потрачено времени
     void timeIsReady(QString result);
+
 };
 
 #endif // KMPSEARCH_H
