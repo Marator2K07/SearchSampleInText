@@ -4,6 +4,7 @@
 
 #include "myfiledialog.h"
 #include "linearsearch.h"
+#include "kmpsearch.h"
 
 #include <QMainWindow>
 #include <QWidget>
@@ -20,6 +21,7 @@ class MainWindow : public QMainWindow
 private:
     MyFileDialog *fileDialog;
     LinearSearch *linearSearch;
+    KMPSearch *kMPSearch;
 
 private:
     void threadsInitialization(QPushButton *startSearch);
