@@ -1,5 +1,5 @@
 
-#include "bmpsearch.h"
+#include "bmhsearch.h"
 
 BMPSearch::BMPSearch()
 {

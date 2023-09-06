@@ -1,6 +1,6 @@
 
-#ifndef BMPSEARCH_H
-#define BMPSEARCH_H
+#ifndef BMHSEARCH_H
+#define BMHSEARCH_H
 
 #include "searchengine.h"
 
@@ -13,4 +13,4 @@ public:
     BMPSearch();
 };
 
-#endif // BMPSEARCH_H
+#endif // BMHSEARCH_H
