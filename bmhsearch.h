@@ -14,6 +14,8 @@ private:
     QTextEdit* text;
     QLineEdit* sample;
     QElapsedTimer timer;
+    int arrayShiftSize;
+    int* shift;
 
 public:
     BMPSearch(QTextEdit* text,
