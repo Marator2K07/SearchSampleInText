@@ -9,8 +9,19 @@
 class BMPSearch : public SearchEngine
 {
     Q_OBJECT
+
+private:
+    QTextEdit* text;
+    QLineEdit* sample;
+    QElapsedTimer timer;
+
 public:
-    BMPSearch();
+    BMPSearch(QTextEdit* text,
+              QLineEdit* sample);
+
+public slots:
+    // SearchEngine interface
+    void start();
 };
 
 #endif // BMHSEARCH_H
