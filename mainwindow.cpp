@@ -15,6 +15,12 @@ void MainWindow::threadsInitialization(QPushButton *startSearch)
     connect(kMPSearch, SIGNAL(stop()), kMPSThread, SLOT(quit()));
     kMPSearch->moveToThread(kMPSThread);
     connect(startSearch, SIGNAL(pressed()), kMPSThread, SLOT(start()));
+    // обработка потока БМХ поиска
+    QThread *bMHSThread = new QThread;
+    connect(bMHSThread, SIGNAL(started()), bMHSearch, SLOT(start()));
+    connect(bMHSearch, SIGNAL(stop()), bMHSThread, SLOT(quit()));
+    bMHSearch->moveToThread(bMHSThread);
+    connect(startSearch, SIGNAL(pressed()), bMHSThread, SLOT(start()));
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -82,14 +88,16 @@ MainWindow::MainWindow(QWidget *parent)
     // его слота с сигналом нажатия кнопки
     fileDialog = new MyFileDialog(textField);
     connect(loadFile, SIGNAL(pressed()), fileDialog, SLOT(loadTxtFileInField()));
-    // начальная инициализация поисковиков(пока только линейного и КМП)
+    // начальная инициализация поисковиков(теперь всех)
     linearSearch = new LinearSearch(textField, sampleField);
     connect(linearSearch, SIGNAL(resultIsReady(QString)), linearSearchResult, SLOT(setText(QString)));
     connect(linearSearch, SIGNAL(timeIsReady(QString)), linearTimeResult, SLOT(setText(QString)));
     kMPSearch = new KMPSearch(textField, sampleField);
     connect(kMPSearch, SIGNAL(resultIsReady(QString)), kMPSearchResult, SLOT(setText(QString)));
     connect(kMPSearch, SIGNAL(timeIsReady(QString)), kMPTimeResult, SLOT(setText(QString)));
-
+    bMHSearch = new BMHSearch(textField, sampleField);
+    connect(bMHSearch, SIGNAL(resultIsReady(QString)), bMHSearchResult, SLOT(setText(QString)));
+    connect(bMHSearch, SIGNAL(timeIsReady(QString)), bMHTimeResult, SLOT(setText(QString)));
     // завершающая инициализация потоков для поисковиков вместе с сигнально-слотовыми соединениями;
     // теперь при нажатии на "Начать поиск" будут запускаться потоки для всех
     // написанных алгоритмов поиска
