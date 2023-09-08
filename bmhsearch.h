@@ -5,8 +5,7 @@
 #include "searchengine.h"
 
 
-
-class BMPSearch : public SearchEngine
+class BMHSearch : public SearchEngine
 {
     Q_OBJECT
 
@@ -18,7 +17,7 @@ private:
     int* shift;
 
 public:
-    BMPSearch(QTextEdit* text,
+    BMHSearch(QTextEdit* text,
               QLineEdit* sample);
 
 public slots:
