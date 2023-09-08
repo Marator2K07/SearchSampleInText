@@ -56,15 +56,13 @@ void KMPSearch::start()
         }
     }
     // смотрим результаты
-    if (j == smpl.length()) {
-        emit timeIsReady(QString::number(timer.nsecsElapsed()));
+    emit timeIsReady(QString::number(timer.nsecsElapsed()));
+    if (j == smpl.length()) {;
         emit resultIsReady(QString("Образ найден на позиции: %1").arg(i-j));
-        emit stop();
     }
     else {
-        emit timeIsReady(QString::number(timer.nsecsElapsed()));
         emit resultIsReady(QString("Образ не был найден"));
-        emit stop();
     }
+    emit stop();
 }
 
