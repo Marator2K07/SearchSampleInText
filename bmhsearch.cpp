@@ -29,7 +29,6 @@ void BMHSearch::start()
     for(int i = 0; i <= smplLenght - 2; i++) {
         shift[smpl[i].unicode()] = smplLenght - i - 1;
     }
-    shift[404] = smplLenght;
     // подготовления к основному алгоритму
     int i = smplLenght;
     int j = smplLenght;
@@ -40,13 +39,13 @@ void BMHSearch::start()
             k--;
             j--;
         }
-        else if (shift.contains(txt[i-1].unicode())) {
+        else if (shift.find(txt[i-1].unicode()) != shift.end()) {
             i += shift[txt[i-1].unicode()];
             j = smplLenght;
             k = i;
         }
         else {
-            i += shift[404];
+            i += smplLenght;
             j = smplLenght;
             k = i;
         }
