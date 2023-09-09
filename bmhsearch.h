@@ -4,6 +4,7 @@
 
 #include "searchengine.h"
 
+#include <QMap>
 
 class BMHSearch : public SearchEngine
 {
@@ -13,8 +14,7 @@ private:
     QTextEdit* text;
     QLineEdit* sample;
     QElapsedTimer timer;
-    int arrayShiftSize;
-    int* shift;
+    QMap<char16_t, int> shift;
 
 public:
     BMHSearch(QTextEdit* text,

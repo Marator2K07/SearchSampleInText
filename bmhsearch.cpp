@@ -5,20 +5,16 @@ BMHSearch::BMHSearch(QTextEdit* text,
                      QLineEdit* sample)
 {
     this->text = text;
-    this->sample = sample;
-    arrayShiftSize = 256;
-    shift = new int[arrayShiftSize];
+    this->sample = sample;    
 }
 
 void BMHSearch::start()
 {
     // подготовление нужных для алгоритма переменных
-    QByteArray txtBytes;
-    txtBytes = text->toPlainText().toUtf8();
-    int txtLenght = txtBytes.length();
-    QByteArray smplBytes;
-    smplBytes = sample->text().toUtf8();
-    int smplLenght = smplBytes.length();
+    QString txt = text->toPlainText();
+    int txtLenght = txt.length();
+    QString smpl = sample->text();
+    int smplLenght = smpl.length();
 
     // стоит проверить, а заполнены ли поля
     if(txtLenght == 0 || smplLenght == 0) {
@@ -27,27 +23,30 @@ void BMHSearch::start()
         emit stop();
         return;
     }
+    shift.clear();
     timer.start();
-    // для начала проинициализируем массив сдвигов
-    for(int i = 0; i < arrayShiftSize; i++) {
-        shift[i] = smplLenght;
-    }
     // а теперь заполним его нужными значениями сдвигов
     for(int i = 0; i <= smplLenght - 2; i++) {
-        shift[(int) smplBytes[i]] = smplLenght - i - 1;
+        shift[smpl[i].unicode()] = smplLenght - i - 1;
     }
+    shift[404] = smplLenght;
     // подготовления к основному алгоритму
     int i = smplLenght;
     int j = smplLenght;
     int k = i;
     // сам алгоритм
     while(j > 0 && i <= txtLenght) {
-        if (txtBytes[k-1] == smplBytes[j-1]) {
+        if (txt[k-1] == smpl[j-1]) {
             k--;
             j--;
         }
-        else  {
-            i += shift[(int) txtBytes[i-1]];
+        else if (shift.contains(txt[i-1].unicode())) {
+            i += shift[txt[i-1].unicode()];
+            j = smplLenght;
+            k = i;
+        }
+        else {
+            i += shift[404];
             j = smplLenght;
             k = i;
         }
