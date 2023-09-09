@@ -27,14 +27,16 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow{parent}
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    // виджеты для основного вертикального компоновщика
-    QLabel *textFieldLabel = new QLabel("Поле основного текста:");
-    textFieldLabel->setAlignment(Qt::AlignHCenter);
+    // виджеты для основного вертикального компоновщика    
     QTextEdit *textField = new QTextEdit;
+    QLabel *textFieldLabel = new QLabel("Поле основного &текста:");
+    textFieldLabel->setAlignment(Qt::AlignHCenter);
+    textFieldLabel->setBuddy(textField);
     QPushButton *loadFile = new QPushButton("Загрузить текст из файла");
-    QLabel *sampleFieldLabel = new QLabel("Поле образа для поиска:");
-    sampleFieldLabel->setAlignment(Qt::AlignHCenter);
     QLineEdit *sampleField = new QLineEdit;
+    QLabel *sampleFieldLabel = new QLabel("Поле &образа для поиска:");
+    sampleFieldLabel->setAlignment(Qt::AlignHCenter);
+    sampleFieldLabel->setBuddy(sampleField);
     QPushButton *startSearch = new QPushButton("Начать поиск");
     // подвиджеты названий поиска и компоновщик для них
     QHBoxLayout *namesSearchLayout = new QHBoxLayout;
